@@ -7,6 +7,7 @@ var http = require('http')
   , qs = require('querystring')
   , os = require('os');
 
+var success_count = 0, error_count = 0, timeout_count = 0;
 // send response to request client
 function write_to_response(res, str, content_type, status_code) {
 	if(!(str instanceof Buffer) && typeof str !== 'string') {
@@ -74,6 +75,7 @@ function expand_url(res, short_url) {
 		if(response.statusCode == 302 || response.statusCode == 301) {
 			expand_url(res, response.headers.location);
 		} else {
+		    success_count++;
 			if(sinaurl_m) {
 				var buffers = [], size = 0;
 				response.on('data', function(buffer) {
@@ -104,12 +106,14 @@ function expand_url(res, short_url) {
 	}).on('error', function(err) {
 	    //console.log(err, timer)
 	    clearTimeout(timer);
+	    error_count++;
 		write_to_response(res, short_url);
 	});
 	
 	// timeout
 	timer = setTimeout(function(request) {
 	    request.abort();
+	    timeout_count++;
 	    write_to_response(res, short_url);
 	}, 5000, req);
 };
@@ -125,6 +129,7 @@ var server = http.createServer(function(req, res) {
 	    for(var k in usage) {
 	        html += k + ' ' + parseInt(usage[k] / mb) + 'MB, ';
 	    }
+	    html += '<br/></br>Success: ' + success_count + ' Error: ' + error_count + ' Timeout: ' + timeout_count;
 	    res.writeHead(200, {'Content-Type': 'text/html'});
 	    res.end(html);
 	} else if(req.url === '/') {
