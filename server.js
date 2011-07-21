@@ -142,8 +142,8 @@ var server = http.createServer(function(req, res) {
 });
 
 process.on('uncaughtException', function(err) {
-	console.error(err.stack);
-	process.exit(0);
+	console.error('uncaughtException: !!!!\n' + err.stack);
+	//process.exit(0);
 });
 
 var port = 8080;
