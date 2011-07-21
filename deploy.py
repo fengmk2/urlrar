@@ -23,10 +23,13 @@ def check(no):
 
 
 if __name__ == '__main__':
-    start, end = int(sys.argv[1]), int(sys.argv[2]) + 1
+    start, end = 0, 51
+    if len(sys.argv) > 1:
+        start = int(sys.argv[1])
+        end = start + 1
+        if len(sys.argv) > 2:
+            end = int(sys.argv[2]) + 1
+    print 'check %s => %s' % (start, end)
     for i in range(start, end):
-        cmd = 'dotcloud push fawave.url%s .' % i
-        print cmd
-        os.system(cmd);
         check(i)
     
