@@ -105,6 +105,7 @@ function expand_url(res, short_url) {
 		}
 	}).on('error', function(err) {
 	    //console.log(err, timer)
+	    console.error(err.stack);
 	    clearTimeout(timer);
 	    error_count++;
 		write_to_response(res, short_url);
