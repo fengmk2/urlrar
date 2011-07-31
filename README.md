@@ -7,5 +7,7 @@
 ## help
 @fengmk2 @Python发烧友
 
-## auto deploy
+## deploy
+
+    $ dotcloud push urlrar urlrar/
 
