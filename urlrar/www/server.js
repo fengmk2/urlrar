@@ -73,7 +73,7 @@ function expand_url(res, short_url) {
 	req = http.get(options, function(response) {
 	    clearTimeout(timer);
 		if(response.statusCode == 302 || response.statusCode == 301) {
-			expand_url(res, response.headers.location);
+			return expand_url(res, urlutil.resolve(short_url, response.headers.location));
 		} else {
 		    success_count++;
 			if(sinaurl_m) {
