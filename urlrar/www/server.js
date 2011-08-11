@@ -158,7 +158,9 @@ var server = http.createServer(function(req, res) {
 	    for(var k in usage) {
 	        html += k + ' ' + parseInt(usage[k] / mb) + 'MB, ';
 	    }
-	    html += '<br/></br>Success: ' + success_count + ' Error: ' + request_error_count + ' Timeout: ' + request_timeout_count;
+	    html += '<br/></br>Success: ' + success_count + ' Error: ' + request_error_count 
+	        + ' Request Timeout: ' + request_timeout_count
+	        + ' Response Timeout: ' + response_timeout_count;
 	    for(var i = 0, len = last_request_errors.length; i < len; i++) {
 	        var error = last_request_errors[i];
 	        html += '<hr/>Last Request Error:<br/>' + error.url + ' : ' + error.error;
