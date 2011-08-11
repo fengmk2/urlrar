@@ -138,7 +138,7 @@ function expand_url(res, short_url) {
 	});
 };
 
-var INDEX = '<body style="margin: 30px 0 0 30px;">'
+var INDEX = '<html><head><title>Shorten URL Expand</title></head><body style="margin: 30px 0 0 30px;">'
     + '<h1>Shorten URL Expand</h1><form action="/"><label>Enter your shorten url:</label><br/>'
     + '<input id="url" type="text" name="u" style="width: 400px;" /> <button>Expand</button></form>'
     + '<p>API Usage: <br/><br/> HTTP GET <a href="/?u=http://t.cn/aK1IFu">/?u=http://t.cn/htf6yk</a></p>'
@@ -146,7 +146,7 @@ var INDEX = '<body style="margin: 30px 0 0 30px;">'
     + '<hr/><div>Help: Twitter: <a href="http://twitter.com/fengmk2" target="_blank">@fengmk2</a>, '
     + 'Weibo: <a href="http://weibo.com/imk2" target="_blank">@Python发烧友</a></div>'
     + '<p><a href="/monitor">monitor</a> | <a href="http://github.com/fengmk2/urlrar" target="_blank">Source</a>'
-    + ' | Power by <a href="http://nodejs.org" target="_blank">Nodejs</a></p></body>';
+    + ' | Power by <a href="http://nodejs.org" target="_blank">Nodejs</a></p></body></html>';
 var server = http.createServer(function(req, res) {
 	var info = urlutil.parse(req.url, true);
 	if(info.query && info.query.u) {
