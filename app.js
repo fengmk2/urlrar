@@ -33,7 +33,7 @@ var app = http.createServer(function(req, res) {
     return res.end(homeHtml);
   }
 
-  if (info.pathname === '/api') {
+  if (info.pathname === '/api' || info.pathname === '/api/e') {
     var query = info.query;
     if (!query.u) {
       return res.end('`u` argument required.')
