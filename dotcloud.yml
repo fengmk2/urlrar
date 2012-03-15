@@ -1,63 +1,63 @@
 u0:
   type: nodejs
-  approot: www
+  approot: .
 u1:
   type: nodejs
-  approot: www
+  approot: .
 u2:
   type: nodejs
-  approot: www
+  approot: .
 u3:
   type: nodejs
-  approot: www
+  approot: .
 u4:
   type: nodejs
-  approot: www
+  approot: .
 u5:
   type: nodejs
-  approot: www
+  approot: .
 u6:
   type: nodejs
-  approot: www
+  approot: .
 u7:
   type: nodejs
-  approot: www
+  approot: .
 u8:
   type: nodejs
-  approot: www
+  approot: .
 u9:
   type: nodejs
-  approot: www
+  approot: .
 u10:
   type: nodejs
-  approot: www
+  approot: .
 u11:
   type: nodejs
-  approot: www
+  approot: .
 u12:
   type: nodejs
-  approot: www
+  approot: .
 u13:
   type: nodejs
-  approot: www
+  approot: .
 u14:
   type: nodejs
-  approot: www
+  approot: .
 u15:
   type: nodejs
-  approot: www
+  approot: .
 u16:
   type: nodejs
-  approot: www
+  approot: .
 u17:
   type: nodejs
-  approot: www
+  approot: .
 u18:
   type: nodejs
-  approot: www
+  approot: .
 u19:
   type: nodejs
-  approot: www
+  approot: .
 u20:
   type: nodejs
-  approot: www
+  approot: .

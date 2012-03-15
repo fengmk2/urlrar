@@ -10,6 +10,6 @@ $ node server.js
 
 ## Deploy
 ```
-$ dotcloud push urlrar urlrar/
+$ dotcloud push urlrar .
 ```
 
