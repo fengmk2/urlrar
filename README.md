@@ -1,13 +1,15 @@
-# Expand any shorten url for you
+# urlrar, Expand any shorten url for you
 
-## start
+## Start
+```
+$ node server.js
+```
 
-    $ node server.js
-
-## help
+## Help
 @fengmk2 @Python发烧友
 
-## deploy
-
-    $ dotcloud push urlrar urlrar/
+## Deploy
+```
+$ dotcloud push urlrar urlrar/
+```
 

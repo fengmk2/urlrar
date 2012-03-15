@@ -37,29 +37,23 @@ function redirect(res, url, status_code) {
 "icon":"http:\/\/img.t.sinajs.cn\/t3\/style\/images\/common\/feedvideoplay.gif"}}}
  * 
 */
-var SINAURL_RE = /http:\/\/(?:t|sinaurl)\.cn\/(\w+)/i;
+// var SINAURL_RE = /http:\/\/(?:t|sinaurl)\.cn\/(\w+)/i;
 
 function expand_url(res, short_url) {
 	var info = urlutil.parse(short_url);
 	if(info.protocol != 'http:') { // 无法请求https的url?
 		return write_to_response(res, {url: short_url});
 	}
-	var sinaurl_m = SINAURL_RE.exec(short_url);
+	// var sinaurl_m = SINAURL_RE.exec(short_url);
 	var host = null, path = null, port = null;
-	if(sinaurl_m) {
-		host = 'weibo.com';
-		path = '/mblog/sinaurl_info.php?url=' + sinaurl_m[1];
-		port = 80;
-	} else {
-		path = info.pathname || '/';
-		if(info.search) {
-			path += info.search;
-		}
-		host = info.hostname;
-		port = info.port || 80;
-	}
+	path = info.pathname || '/';
+  if(info.search) {
+    path += info.search;
+  }
+  host = info.hostname;
+  port = info.port || 80;
 	var headers = {
-		'User-Agent': 'NodejsSpider/1.0'
+		'User-Agent': 'curl/7.19.7'
 	};
 	var options = {
 		host: host,
@@ -71,63 +65,63 @@ function expand_url(res, short_url) {
 	// request timeout
 	var request_timeout = 5000;
 	request_timer = setTimeout(function() {
-        req.abort();
-        request_timeout_count++;
-        write_to_response(res, {url: short_url, error: 'Request Timeout ' + request_timeout + 'ms'});
-    }, request_timeout);
+    req.abort();
+    request_timeout_count++;
+    write_to_response(res, { url: short_url, error: 'Request Timeout ' + request_timeout + 'ms' });
+  }, request_timeout);
 	req = http.get(options, function(response) {
-	    clearTimeout(request_timer);
+    clearTimeout(request_timer);
 		if(response.statusCode == 302 || response.statusCode == 301) {
 			return expand_url(res, urlutil.resolve(short_url, response.headers.location));
 		}
 		
-	    if(!sinaurl_m || response.statusCode !== 200) {
-	        response.destroy(); // 断开连接，不再继续下载
-            success_count++;
-            return write_to_response(res, {url: short_url});
-	    }
-	    
-	    // 解析新浪返回结果
-	    var response_timeout = 10000;
-	    var response_timer = setTimeout(function() {
-            response.destroy(); // 断开连接，不再继续下载
-            response_timeout_count++;
-            write_to_response(res, {url: short_url, error: 'Response Timeout ' + response_timeout + 'ms'});
-        }, response_timeout);
-        var buffers = [], size = 0;
-        response.on('data', function(buffer) {
-            buffers.push(buffer);
-            size += buffer.length;
-        });
-        response.on('end', function() {
-            clearTimeout(response_timer);
-            var data = new Buffer(size), pos = 0;
-            for(var i = 0, len = buffers.length; i < len; i++) {
-                buffers[i].copy(data, pos);
-                pos += buffers[i].length;
-            }
-            data = data.toString('utf-8');
-            try {
-                data = JSON.parse(data);
-                data = data.data[sinaurl_m[1]];
-                success_count++;
-            } catch(err) {
-                console.error('json parse error: ' + short_url);
-                console.error(err.stack);
-                json_parse_error_count++;
-                data = {error: err.message, source: data, url: short_url};
-                last_json_parse_errors[last_json_parse_errors_index] = data;
-                if(++last_json_parse_errors_index >= 10) {
-                    last_json_parse_errors_index = 0;
-                }
-            }
-            write_to_response(res, data);
-        });
+    if(!sinaurl_m || response.statusCode !== 200) {
+        response.destroy(); // 断开连接，不再继续下载
+          success_count++;
+          return write_to_response(res, {url: short_url});
+    }
+    
+    // 解析新浪返回结果
+    var response_timeout = 10000;
+    var response_timer = setTimeout(function() {
+          response.destroy(); // 断开连接，不再继续下载
+          response_timeout_count++;
+          write_to_response(res, {url: short_url, error: 'Response Timeout ' + response_timeout + 'ms'});
+      }, response_timeout);
+      var buffers = [], size = 0;
+      response.on('data', function(buffer) {
+          buffers.push(buffer);
+          size += buffer.length;
+      });
+      response.on('end', function() {
+          clearTimeout(response_timer);
+          var data = new Buffer(size), pos = 0;
+          for(var i = 0, len = buffers.length; i < len; i++) {
+              buffers[i].copy(data, pos);
+              pos += buffers[i].length;
+          }
+          data = data.toString('utf-8');
+          try {
+              data = JSON.parse(data);
+              data = data.data[sinaurl_m[1]];
+              success_count++;
+          } catch(err) {
+//                console.error('json parse error: ' + short_url);
+//                console.error(err.stack);
+              json_parse_error_count++;
+              data = {error: err.message, source: data, url: short_url};
+              last_json_parse_errors[last_json_parse_errors_index] = data;
+              if(++last_json_parse_errors_index >= 10) {
+                  last_json_parse_errors_index = 0;
+              }
+          }
+          write_to_response(res, data);
+      });
 	}).on('error', function(err) {
 	    // 响应头有错误
 	    clearTimeout(request_timer);
-	    console.error('request parse error: ' + short_url);
-	    console.error(err.stack);
+//	    console.error('request parse error: ' + short_url);
+//	    console.error(err.stack);
 	    request_error_count++;
 	    var error = {url: short_url, error: err.message};
 	    last_request_errors[last_request_errors_index] = error;
@@ -181,7 +175,12 @@ var server = http.createServer(function(req, res) {
 });
 
 process.on('uncaughtException', function(err) {
-	console.error('uncaughtException: !!!!\n' + err.stack);
+    var msg = 'uncaughtException: !!!!\n' + err.stack;
+//	console.error(msg);
+	last_request_errors[last_request_errors_index] = {error: msg};
+    if(++last_request_errors_index >= 10) {
+        last_request_errors_index = 0;
+    }
 	//process.exit(0);
 });
 

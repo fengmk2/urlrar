@@ -33,10 +33,11 @@ map = {
 def check(no):
     url = map['u%s' % no]
 #    url = url + '?u=http://is.gd/imWyT'
-    url = url + '?u=http://flic.kr/p/a8jyps'
+    # url = url + '?u=http://flic.kr/p/a8jyps'
+    url = url + '?u=http://t.cn/htf6yk'
     print no, url
 #    want = "https://chrome.google.com/webstore/detail/aicelmgbddfgmpieedjiggifabdpcnln"
-    want = "http://www.flickr.com/photos/newyorkerinboulder/5990047408/"
+    want = "http://www.sqlalchemy.org/"
     try:
         longurl = simplejson.loads(urllib2.urlopen(url).read())['url'];
     except Exception, e:

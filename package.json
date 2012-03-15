@@ -1,0 +1,17 @@
+{
+  "name": "urlrar",
+  "version": "0.1.0",
+  "description": "URL Shorten and Expand",
+  "keywords": ["url shorten", "shorten", "bitly", "url expand"],
+  "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.cnblogs.com)",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "should": ">=0.4.2",
+    "mocha": ">=0.7.1"
+  },
+  "main": "server.js",
+  "engines": { 
+    "node": ">= 0.6.0 < 0.7.0" 
+  }
+}
