@@ -7,8 +7,9 @@
   "dependencies": {
   },
   "devDependencies": {
-    "should": ">=0.4.2",
-    "mocha": ">=0.7.1"
+    "should": "*",
+    "supertest": "*",
+    "mocha": "*"
   },
   "main": "server.js",
   "engines": { 

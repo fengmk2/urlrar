@@ -26,17 +26,17 @@ var homeHtml = fs.readFileSync('./index.html');
 
 var app = http.createServer(function(req, res) {
   res.setHeader('X-Power-By', 'Nodejs');
+  res.setHeader('Content-Type', 'text/html');
   var info = parse(req.url, true);
 
   if (info.pathname === '/') {
-    res.setHeader('Content-Type', 'text/html');
     return res.end(homeHtml);
   }
 
   if (info.pathname === '/api' || info.pathname === '/api/e') {
     var query = info.query;
     if (!query.u) {
-      return res.end('`u` argument required.')
+      return res.end('`u` argument required.');
     }
     urllib.expand(query.u, function(err, longurl) {
       if (query.cb) {
