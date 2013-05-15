@@ -8,10 +8,12 @@
     "bitly",
     "url expand"
   ],
-  "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.cnblogs.com)",
+  "author": "fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)",
   "dependencies": {},
   "devDependencies": {
     "should": "*",
+    "jscover": "*",
+    "pedding": "*",
     "supertest": "*",
     "mocha": "*"
   },
