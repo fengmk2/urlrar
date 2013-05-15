@@ -1,24 +1,23 @@
 TESTS = test/*.test.js
 REPORTER = spec
 TIMEOUT = 10000
-JSCOVERAGE = ./node_modules/jscover/bin/jscover
+MOCHA_OPTS =
 
 install:
 	@npm install
 
-test:
+test: install
 	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
+		--require node-patch \
 		--reporter $(REPORTER) \
 		--timeout $(TIMEOUT) \
+		$(MOCHA_OPTS) \
 		$(TESTS)
 
-test-cov: cov
-	@URLRAR_COV=1 $(MAKE) -C .cov test
-	@URLRAR_COV=1 $(MAKE) -C .cov test REPORTER=html-cov > coverage.html
+test-cov: 
+	@URLRAR_COV=1 $(MAKE) test MOCHA_OPTS='--require blanket' REPORTER=html-cov > coverage.html
+	@URLRAR_COV=1 $(MAKE) test MOCHA_OPTS='--require blanket' REPORTER=travis-cov
 
-cov:
-	@rm -rf .cov
-	@$(JSCOVERAGE) . .cov
-	@cp -rf node_modules .cov
+test-all: test test-cov
 
-.PHONY: test-cov test cov
+.PHONY: test-cov test test-all

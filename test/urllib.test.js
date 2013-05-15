@@ -15,8 +15,8 @@ describe('urllib.test.js', function() {
       [ 'http://www.baidu.com/', 'http://www.baidu.com/', 0 ],
       [ 'http://163.fm/7yYSdlI', 'http://nodejs.org/community/', 2 ],
       [ 'http://t.cn/zlFTepd', 'http://w775.51qiangzuo.com/', 1 ],
-      [ 'http://luo.bo/17221/', 'http://luo.bo/17221/', 0 ],
-      [ 'http://t.itc.cn/LLHD6', 'http://app.chrome.csdn.net/work_detail.php?id=57', 1 ],
+      // [ 'http://luo.bo/17221/', 'http://luo.bo/17221/', 0 ],
+      // [ 'http://t.itc.cn/LLHD6', 'http://app.chrome.csdn.net/work_detail.php?id=57', 1 ],
     ];
     var desc = 'should expand ' + mapping.length + ' shorten urls success';
 

@@ -12,7 +12,9 @@
   "dependencies": {},
   "devDependencies": {
     "should": "*",
-    "jscover": "*",
+    "node-patch": "*",
+    "travis-cov": "*",
+    "blanket": "*",
     "pedding": "*",
     "supertest": "*",
     "mocha": "*"
@@ -22,7 +24,16 @@
     "node": ">= 0.6.0"
   },
   "scripts": {
-    "test": "make test"
+    "test": "make test-all",
+    "blanket": { 
+      "pattern": "//^((?!(node_modules|test)).)*$/",
+      "data-cover-flags": {
+        "debug": false
+      }
+    },
+    "travis-cov": {
+      "threshold": 93
+    }
   },
   "readmeFilename": "README.md",
   "repository": {
