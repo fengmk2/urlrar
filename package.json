@@ -15,6 +15,8 @@
     "node-patch": "*",
     "travis-cov": "*",
     "blanket": "*",
+    "coveralls": "*",
+    "mocha-lcov-reporter": "*",
     "pedding": "*",
     "supertest": "*",
     "mocha": "*"

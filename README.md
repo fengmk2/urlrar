@@ -1,4 +1,4 @@
-# urlrar, Expand any shorten url for you
+# urlrar, Expand any shorten url for you [![Build Status](https://secure.travis-ci.org/fengmk2/urlrar.png?branch=master)](http://travis-ci.org/TBEDP/urllib) [![Coverage Status](https://coveralls.io/repos/fengmk2/urlrar/badge.png)](https://coveralls.io/r/fengmk2/urlrar)
 
 * demo: [Shorten URL Expand](http://urlrar.cnodejs.net/)
 * jscoverage: [93%](http://fengmk2.github.com/coverage/urlrar.html)
